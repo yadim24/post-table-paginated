@@ -22,7 +22,9 @@ export const Pagination: FC<Props> = ({
     <div className={styles.pagination}>
       <button
         type="button"
-        className={styles['page-back-next']}
+        className={clsx(styles['page-back-next'], {
+          [styles.visibility]: activePage === 1,
+        })}
         onClick={() => onChangePage(activePage - 1)}
       >
         Назад
@@ -44,7 +46,9 @@ export const Pagination: FC<Props> = ({
       </div>
       <button
         type="button"
-        className={styles['page-back-next']}
+        className={clsx(styles['page-back-next'], {
+          [styles.visibility]: activePage === pagesQty,
+        })}
         onClick={() => onChangePage(activePage + 1)}
       >
         Вперёд

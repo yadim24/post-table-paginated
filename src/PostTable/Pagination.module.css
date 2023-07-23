@@ -27,3 +27,7 @@
 .active {
   color: #7ebc3c;
 }
+
+.visibility {
+  visibility: hidden;
+}
