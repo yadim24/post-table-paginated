@@ -27,7 +27,7 @@ export const PostTable: FC = () => {
   const postsFilter = queryParams.filter ?? '';
   const debounceFilter = useDebounce(postsFilter, 500);
 
-  const { data = { result: [], totalRows: 1 } } = useQuery({
+  const { isLoading, data = { result: [], totalRows: 1 } } = useQuery({
     queryKey: [
       'posts',
       {
@@ -98,7 +98,7 @@ export const PostTable: FC = () => {
         />
         <Search className={styles.magnifier} />
       </div>
-      <table>
+      <table className={styles.table}>
         <thead className={styles.head}>
           <tr>
             {(
@@ -131,7 +131,9 @@ export const PostTable: FC = () => {
               />
             );
           })}
-          {data.result.length === 0 && <SkeletonTableRow />}
+          {data.result.length === 0 && (
+            <SkeletonTableRow isLoading={isLoading} />
+          )}
         </tbody>
       </table>
       <Pagination
