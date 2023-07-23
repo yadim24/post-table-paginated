@@ -1,14 +1,14 @@
 .container {
-  max-width: 1100px;
+  max-width: 1104px;
   margin: auto;
   padding: 16px;
 }
 
 .search-wrapper {
-  max-width: 631px;
-  height: 52px;
+  max-width: 632px;
+  height: 56px;
   position: relative;
-  margin-bottom: 15px;
+  margin-bottom: 16px;
   background: #5a5c66;
 }
 
@@ -27,13 +27,14 @@
 }
 
 .magnifier {
-  color: #fff;
   position: absolute;
-  top: 13px;
-  right: 13px;
-  width: 26px;
-  height: 26px;
-  padding: 2px;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .table {
@@ -44,8 +45,8 @@
 
 .head {
   background: #474955;
-  box-shadow: 0px 4px 27px 0px rgba(230, 231, 234, 0.78);
-  height: 54px;
+  box-shadow: 0px 4px 24px 0px rgba(230, 231, 234, 0.78);
+  height: 56px;
   color: #fff;
   font-size: 14px;
   font-weight: 500;

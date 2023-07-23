@@ -49,14 +49,10 @@ export const PostTable: FC = () => {
   const handleFilter: ChangeEventHandler<HTMLInputElement> = (e) => {
     const filterRow = e.target.value;
 
-    if (queryParams.page !== 1)
-      setQueryParams((prevQueryParams) => ({
-        ...prevQueryParams,
-        page: 1,
-      }));
     setQueryParams((prevQueryParams) => ({
       ...prevQueryParams,
       filter: filterRow,
+      page: 1,
     }));
   };
 
@@ -68,20 +64,16 @@ export const PostTable: FC = () => {
   };
 
   const changeSortParams = (value: SortValues | null): void => {
-    if (value !== queryParams.sort) {
-      setQueryParams((prevQueryParams) => ({
-        ...prevQueryParams,
-        sort: value,
-        order: 'asc',
-      }));
-
-      return;
-    }
-
     if (value === queryParams.sort) {
       setQueryParams((prevQueryParams) => ({
         ...prevQueryParams,
         order: prevQueryParams.order === 'asc' ? 'desc' : 'asc',
+      }));
+    } else {
+      setQueryParams((prevQueryParams) => ({
+        ...prevQueryParams,
+        sort: value,
+        order: 'asc',
       }));
     }
   };
@@ -96,7 +88,9 @@ export const PostTable: FC = () => {
           onChange={handleFilter}
           className={styles.search}
         />
-        <Search className={styles.magnifier} />
+        <div className={styles.magnifier}>
+          <Search color="#fff" size={24} />
+        </div>
       </div>
       <table className={styles.table}>
         <thead className={styles.head}>
@@ -110,8 +104,8 @@ export const PostTable: FC = () => {
             ).map((item) => (
               <PostTableHeader
                 key={item.value}
-                isSorted={queryParams.sort}
-                isOrdered={queryParams.order}
+                sortedField={queryParams.sort}
+                selectedOrder={queryParams.order}
                 value={item.value}
                 onClick={() => changeSortParams(item.value)}
               >

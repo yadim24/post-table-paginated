@@ -1,8 +1,8 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { FC, ReactElement } from 'react';
+import { FC, ReactNode } from 'react';
 
 type Props = {
-  children: ReactElement;
+  children: ReactNode;
 };
 
 const queryClient = new QueryClient();

@@ -4,16 +4,16 @@ import styles from './PostTableHeader.module.css';
 
 type PostTableHeaderType = {
   children: string;
-  isSorted: 'id' | 'title' | 'body' | null;
-  isOrdered: 'asc' | 'desc' | null;
+  sortedField: 'id' | 'title' | 'body' | null;
+  selectedOrder: 'asc' | 'desc' | null;
   value: string;
   onClick: () => void;
 };
 
 export const PostTableHeader: FC<PostTableHeaderType> = ({
   children,
-  isSorted,
-  isOrdered,
+  sortedField,
+  selectedOrder,
   value,
   onClick,
 }) => {
@@ -26,11 +26,11 @@ export const PostTableHeader: FC<PostTableHeaderType> = ({
         onClick={onClick}
       >
         <span>{children}</span>
-        {isSorted !== value && <ChevronsUpDown className={styles.arrow} />}
-        {isSorted === value && isOrdered === 'asc' && (
+        {sortedField !== value && <ChevronsUpDown className={styles.arrow} />}
+        {sortedField === value && selectedOrder === 'asc' && (
           <ChevronDown className={styles.arrow} />
         )}
-        {isSorted === value && isOrdered === 'desc' && (
+        {sortedField === value && selectedOrder === 'desc' && (
           <ChevronUp className={styles.arrow} />
         )}
       </button>
