@@ -88,7 +88,7 @@ export const PostTable: FC = () => {
           onChange={handleFilter}
           className={styles.search}
         />
-        <div className={styles.magnifier}>
+        <div className={styles['search-icon-wrapper']}>
           <Search color="#fff" size={24} />
         </div>
       </div>
