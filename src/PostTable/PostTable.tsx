@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { Search } from 'lucide-react';
 import { ChangeEventHandler, FC, useState } from 'react';
+import { OverlayLoader } from 'shared/OverlayLoader';
 import { useDebounce } from 'shared/useDebounce';
 import { Pagination } from './Pagination';
 import styles from './PostTable.module.css';
@@ -27,7 +28,11 @@ export const PostTable: FC = () => {
   const postsFilter = queryParams.filter ?? '';
   const debounceFilter = useDebounce(postsFilter, 500);
 
-  const { isLoading, data = { result: [], totalRows: 1 } } = useQuery({
+  const {
+    isLoading,
+    isFetching,
+    data = { result: [], totalRows: 1 },
+  } = useQuery({
     queryKey: [
       'posts',
       {
@@ -44,6 +49,7 @@ export const PostTable: FC = () => {
         order: queryParams.order,
         filter: debounceFilter,
       }),
+    keepPreviousData: true,
   });
 
   const handleFilter: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -92,44 +98,46 @@ export const PostTable: FC = () => {
           <Search color="#fff" size={24} />
         </div>
       </div>
-      <table className={styles.table}>
-        <thead className={styles.head}>
-          <tr>
-            {(
-              [
-                { title: 'ID', value: 'id' },
-                { title: 'Заголовок', value: 'title' },
-                { title: 'Описание', value: 'body' },
-              ] satisfies { title: string; value: SortValues }[]
-            ).map((item) => (
-              <PostTableHeader
-                key={item.value}
-                sortedField={queryParams.sort}
-                selectedOrder={queryParams.order}
-                value={item.value}
-                onClick={() => changeSortParams(item.value)}
-              >
-                {item.title}
-              </PostTableHeader>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {data.result.map((post) => {
-            return (
-              <PostTableRow
-                key={post.id}
-                id={post.id}
-                title={post.title}
-                body={post.body}
-              />
-            );
-          })}
-          {data.result.length === 0 && (
-            <SkeletonTableRow isLoading={isLoading} />
-          )}
-        </tbody>
-      </table>
+      <OverlayLoader isLoading={isFetching}>
+        <table className={styles.table}>
+          <thead className={styles.head}>
+            <tr>
+              {(
+                [
+                  { title: 'ID', value: 'id' },
+                  { title: 'Заголовок', value: 'title' },
+                  { title: 'Описание', value: 'body' },
+                ] satisfies { title: string; value: SortValues }[]
+              ).map((item) => (
+                <PostTableHeader
+                  key={item.value}
+                  sortedField={queryParams.sort}
+                  selectedOrder={queryParams.order}
+                  value={item.value}
+                  onClick={() => changeSortParams(item.value)}
+                >
+                  {item.title}
+                </PostTableHeader>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {data.result.map((post) => {
+              return (
+                <PostTableRow
+                  key={post.id}
+                  id={post.id}
+                  title={post.title}
+                  body={post.body}
+                />
+              );
+            })}
+            {data.result.length === 0 && (
+              <SkeletonTableRow isLoading={isLoading} />
+            )}
+          </tbody>
+        </table>
+      </OverlayLoader>
       <Pagination
         totalRows={data.totalRows}
         activePage={queryParams.page}

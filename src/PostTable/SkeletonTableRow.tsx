@@ -9,7 +9,7 @@ export const SkeletonTableRow: FC<SkeletonTableRowType> = ({ isLoading }) => {
   return (
     <tr>
       <td colSpan={3} className={styles['loading-cell']}>
-        {isLoading ? 'Загрузка постов...' : 'Данные отсутствуют'}
+        {isLoading ? <>&nbsp;</> : 'Данные отсутствуют'}
       </td>
     </tr>
   );
