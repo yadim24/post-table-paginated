@@ -1,9 +1,9 @@
 {
-  "name": "test-20072023",
+  "name": "post-table-paginated",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://yadim24.github.io/test-20072023/",
+  "homepage": "https://yadim24.github.io/post-table-paginated/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

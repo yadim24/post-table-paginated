@@ -2,4 +2,4 @@
 
 ## Хостинг приложения в pages на GitHub по ссылке:
 
-`https://yadim24.github.io/test-20072023/`
+`https://yadim24.github.io/post-table-paginated/`
